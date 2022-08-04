@@ -37,8 +37,8 @@ class FileStorage:
         otherwise, do nothing. If the
         file doesn’t exist, no exception
         should be raised)"""
-        if FileStorage.__file_path:
+        try:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 FileStorage.__objects = json.load(f)
-        else:
+        except FileNotFoundError:
             pass
