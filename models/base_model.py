@@ -5,7 +5,8 @@ from datetime import datetime
 """class base model that defines
 all common attributes and classes"""
 
-tf = "%Y-%m-%dT%H:%M:%S.%f" # time format...
+tf = "%Y-%m-%dT%H:%M:%S.%f"  # time format...
+
 
 class BaseModel:
     """I am the base"""
@@ -16,7 +17,7 @@ class BaseModel:
                 if k != "__class__":
                     setattr(self, k, v)
             if type(kwargs["created_at"]) and\
-                        type(kwargs["updated_at"]) == str:
+                    type(kwargs["updated_at"]) == str:
                 self.created_at = datetime.strptime(kwargs["created_at"], tf)
                 self.updated_at = datetime.strptime(kwargs["updated_at"], tf)
             else:
@@ -30,7 +31,7 @@ class BaseModel:
 
     def __str__(self):
         """Informal str rep"""
-        return ("[{:s}] ({:s}) {}"\
+        return ("[{:s}] ({:s}) {}"
                 .format(self.__class__.__name__, self.id, self.__dict__))
 
     def save(self):
@@ -38,7 +39,6 @@ class BaseModel:
         attribute updated_at with
         the current datetime"""
         self.updated_at = datetime.now().strftime(tf)
-
 
     def to_dict(self):
         """returns a dictionary containing
