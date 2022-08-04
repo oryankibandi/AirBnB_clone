@@ -16,7 +16,7 @@ class FileStorage:
 
     def all(self):
         """returns the dictionary __objects"""
-        return cls.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """sets in __objects the obj
@@ -27,8 +27,8 @@ class FileStorage:
     def save(self):
         """serializes __objects to the
         JSON file (path: __file_path)"""
-        with open(cls.__file_path, "w", encoding="utf-8") as f:
-            json.dump(cls.__objects, f)
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+            json.dump(FileStorage.__objects, f)
 
     def reload(self):
         """deserializes the JSON file
@@ -37,8 +37,8 @@ class FileStorage:
         otherwise, do nothing. If the
         file doesn’t exist, no exception
         should be raised)"""
-        if cls.__file_path:
-            with open(cls.__file_path, "r", encoding="utf-8") as f:
-                cls.__objects = json.load(f)
+        if FileStorage.__file_path:
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+                FileStorage.__objects = json.load(f)
         else:
             pass
