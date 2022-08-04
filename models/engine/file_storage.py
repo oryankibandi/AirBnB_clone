@@ -4,7 +4,6 @@ instances to a JSON file and deserializes
 JSON file to instances"""
 
 import json
-from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -42,6 +41,7 @@ class FileStorage:
         otherwise, do nothing. If the
         file doesn’t exist, no exception
         should be raised)"""
+        from models.base_model import BaseModel
         
         classes = {"BaseModel": BaseModel}
 
@@ -49,7 +49,7 @@ class FileStorage:
             tmp = {}
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 tmp = json.load(f)
-                for k in tmp:
-                    self.__objects[k] = classes[tmp[k]["__class__"]](**tmp[k])
+                for k, v in tmp.items():
+                    self.all()[k] = classes[v['__class__']](**v)
         except FileNotFoundError:
             pass
