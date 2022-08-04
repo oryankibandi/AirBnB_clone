@@ -47,7 +47,7 @@ class FileStorage:
         try:
             tmp = {}
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-                tmp = json.loads(f.read())
+                tmp = json.load(f)
                 for k, v in tmp.items():
                     self.all()[k] = classes[v['__class__']](**v)
         except FileNotFoundError:
