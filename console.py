@@ -2,7 +2,9 @@
 """Program entry"""
 
 import cmd
+import models
 from models.base_model import BaseModel
+import shlex
 
 classes = {"BaseModel": BaseModel}
 
@@ -29,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         emptyline method"""
         pass
 
-    def create(self, args):
+    def do_create(self, args):
         """ Create an object"""
         if not args:
             print("** class name missing **")
@@ -41,10 +43,24 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         print(new_instance.id)
         storage.save()
-        
-    def show():
+
+    def do_show(self, arg):
         """print str rep of an instance"""
-        ...
+        ls = shlex.split(arg)
+        if len(ls) == 0:
+            print("** class name missing **")
+            return False
+        if ls[0] in classes:
+            if len(ls) > 1:
+                k = ls[0] + "." + ls[1]
+                if k in models.storage.all():
+                    print(models.storage.all()[k])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
 
     def destroy():
         """Delete instances"""
@@ -57,6 +73,7 @@ class HBNBCommand(cmd.Cmd):
     def update():
         """updates instances"""
         ...
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
