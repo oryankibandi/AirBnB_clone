@@ -29,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
         emptyline method"""
         pass
 
-    def do_create(self, args):
+    def create(self, args):
         """ Create an object"""
         if not args:
             print("** class name missing **")
