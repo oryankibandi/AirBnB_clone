@@ -42,7 +42,21 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
         storage.save()
         
-    ...
+    def show():
+        """print str rep of an instance"""
+        ...
+
+    def destroy():
+        """Delete instances"""
+        ...
+
+    def all():
+        """prints all"""
+        ...
+
+    def update():
+        """updates instances"""
+        ...
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
