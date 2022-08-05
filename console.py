@@ -2,7 +2,7 @@
 """Program entry"""
 
 import cmd
-import models
+from models.__init__ import storage
 from models.base_model import BaseModel
 import shlex
 
@@ -39,9 +39,9 @@ class HBNBCommand(cmd.Cmd):
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        nw_instance = HBNBCommand.classes[args]()
         storage.save()
-        print(new_instance.id)
+        print(nw_instance.id)
         storage.save()
 
     def do_show(self, arg):
@@ -53,8 +53,8 @@ class HBNBCommand(cmd.Cmd):
         if ls[0] in classes:
             if len(ls) > 1:
                 k = ls[0] + "." + ls[1]
-                if k in models.storage.all():
-                    print(models.storage.all()[k])
+                if k in storage.all():
+                    print(storage.all()[k])
                 else:
                     print("** no instance found **")
             else:
@@ -62,15 +62,15 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def destroy():
+    def do_destroy(self, args):
         """Delete instances"""
         ...
 
-    def all():
+    def do_all(self, args):
         """prints all"""
         ...
 
-    def update():
+    def do_update():
         """updates instances"""
         ...
 
