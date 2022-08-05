@@ -6,6 +6,8 @@ from models.__init__ import storage
 from models.base_model import BaseModel
 import shlex
 
+classes = {"BaseModel": BaseModel}
+
 
 class HBNBCommand(cmd.Cmd):
     """The console class"""
