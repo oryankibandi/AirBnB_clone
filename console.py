@@ -63,13 +63,38 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_destroy(self, args):
+    def do_destroy(self, arg):
         """Delete instances"""
-        ...
+        ls = shlex.split(arg)
+        if len(ls) == 0:
+            print("** class name missing **")
+        elif ls[0] in classes:
+            if len(ls) > 1:
+                k = ls[0] + "." + ls[1]
+                if k in storage.all():
+                    storage.all().pop(k)
+                    storage.save()
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
 
-    def do_all(self, args):
+    def do_all(self, arg):
         """prints all"""
-        ...
+        ls_args = shlex.split(arg)
+        ls_obj = []
+        if len(ls_args) == 0:
+            dct_obj = storage.all()
+        elif ls_args[0] in classes:
+            dct_obj = storage.all(classes[ls_args[0]])
+        else:
+            print("** class doesn't exist **")
+            return False
+        for k in dct_obj:
+            ls_obj.append(str(dct_obj[k]))
+        print("[" + (", ".join(ls_obj)) + "]")
 
     def do_update():
         """updates instances"""
