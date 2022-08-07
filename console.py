@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         if len(ls_args) == 0:
             dct_obj = storage.all()
         elif ls_args[0] in classes:
-            dct_obj = storage.all(classes[ls_args[0]])
+            dct_obj = storage.all()[classes[ls_args[0]]]
         else:
             print("** class doesn't exist **")
             return False
