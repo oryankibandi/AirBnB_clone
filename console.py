@@ -81,20 +81,23 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_all(self, arg):
+    def do_all(self, args):
         """prints all"""
-        ls_args = shlex.split(arg)
-        ls_obj = []
-        if len(ls_args) == 0:
-            dct_obj = storage.all()
-        elif ls_args[0] in classes:
-            dct_obj = storage.all()[classes[ls_args[0]]]
+        ls = []
+
+        if args:
+            args = args.split(' ')[0]
+            if args not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+            for k, v in storage._FileStorage__objects.items():
+                if k.split('.')[0] == args:
+                    ls.append(str(v))
         else:
-            print("** class doesn't exist **")
-            return False
-        for k in dct_obj:
-            ls_obj.append(str(dct_obj[k]))
-        print("[" + (", ".join(ls_obj)) + "]")
+            for k, v in storage._FileStorage__objects.items():
+                ls.append(str(v))
+
+        print(ls)
 
     def do_update():
         """updates instances"""
