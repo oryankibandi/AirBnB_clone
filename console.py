@@ -5,14 +5,28 @@ import cmd
 from models.__init__ import storage
 from models.base_model import BaseModel
 import shlex
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
-classes = {"BaseModel": BaseModel}
+classes = {
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
+          }
 
 
 class HBNBCommand(cmd.Cmd):
     """The console class"""
     prompt = '(hbnb) '
-    classes = {"BaseModel": BaseModel}
+    classes = {
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
+              }
     types = {
              'number_rooms': int, 'number_bathrooms': int,
              'max_guest': int, 'price_by_night': int,
