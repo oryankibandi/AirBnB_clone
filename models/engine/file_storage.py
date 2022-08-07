@@ -26,7 +26,7 @@ class FileStorage:
     def save(self):
         """serializes __objects to the
         JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+        with open(FileStorage.__file_path, "w") as f:
             tmp = {}
             tmp.update(FileStorage.__objects)
             for k, v in tmp.items():
@@ -56,7 +56,7 @@ class FileStorage:
 
         try:
             tmp = {}
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            with open(FileStorage.__file_path, "r") as f:
                 tmp = json.load(f)
                 for k, v in tmp.items():
                     self.all()[k] = classes[v['__class__']](**v)
