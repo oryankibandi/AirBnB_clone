@@ -49,9 +49,7 @@ class FileStorage:
         #from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
+                    'BaseModel': BaseModel, 'User': User
                   }
 
         try:
