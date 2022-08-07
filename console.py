@@ -193,6 +193,14 @@ class HBNBCommand(cmd.Cmd):
 
         nw_dict.save()
 
+    def count(self, args):
+        """Count instances"""
+        cnt = 0
+        for k, v in storage._FileStorage__objects.items():
+            if args == k.split('.')[0]:
+                cnt += 1
+        print(cnt)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
