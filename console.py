@@ -99,9 +99,79 @@ class HBNBCommand(cmd.Cmd):
 
         print(ls)
 
-    def do_update():
+    def do_update(self, args):
         """updates instances"""
-        ...
+        kwargs = ''
+        cls_name = kwargs
+        cls_id = cls_name
+        atr_name = cls_id
+        atr_val = atr_name
+
+        args = args.partition(" ")
+        if args[0]:
+            cls_name = args[0]
+        else:
+            print("** class name missing **")
+            return
+        if cls_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+
+        args = args[2].partition(" ")
+        if args[0]:
+            cls_id = args[0]
+        else:
+            print("** instance id missing **")
+            return
+
+        key = cls_name + "." + cls_id
+
+        if k not in storage.all():
+            print("** no instance found **")
+            return
+
+        if '{' in args[2] and '}' in args[2] and type(eval(args[2])) is dict:
+            kwargs = eval(args[2])
+            args = []
+            for k, v in kwargs.items():
+                args.append(k)
+                args.append(v)
+        else:
+            args = args[2]
+            if args and args[0] is '\"':
+                q = args.find('\"', 1)
+                atr_name = args[1:q]
+                args = args[q + 1:]
+
+            args = args.partition(' ')
+
+            if not atr_name and args[0] is not ' ':
+                atr_name = args[0]
+            if args[2] and args[2][0] is '\"':
+                atr_val = args[2][1:args[2].find('\"', 1)]
+
+            if not atr_val and args[2]:
+                atr_val = args[2].partition(' ')[0]
+
+            args = [atr_name, atr_val]
+
+        nw_dict = storage.all()[k]
+
+        for i, atr_name in enumerate(args):
+            if (i % 2 == 0):
+                atr_val = args[i + 1]
+                if not atr_name:
+                    print("** attribute name missing **")
+                    return
+                if not atr_val:
+                    print("** value missing **")
+                    return
+                if atr_name in HBNBCommand.types:
+                    atr_val = HBNBCommand.types[atr_name](atr_val)
+
+                nw_dict.__dict__.update({atr_name: atr_val})
+
+        nw_dict.save()
 
 
 if __name__ == '__main__':
