@@ -12,7 +12,14 @@ class BaseModel:
     """I am the base"""
     def __init__(self, *args, **kwargs):
         """Initialize"""
-        if len(kwargs) != 0:
+        if len(kwargs) == 0:
+            from models import storage
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+            storage.new(self)
+
+        else:
             for k, v in kwargs.items():
                 if k != "__class__":
                     setattr(self, k, v)
@@ -24,12 +31,9 @@ class BaseModel:
                 self.created_at = datetime.now()
                 self.updated_at = self.created_at
             self.id = str(uuid.uuid4())
-        else:
-            from models import storage
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
-            storage.new(self)
+
+            del kwargs['__class__']
+            self.__dict__.update(kwargs)
 
     def __str__(self):
         """Informal str rep"""
