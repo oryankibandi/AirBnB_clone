@@ -101,11 +101,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """updates instances"""
-        kwargs = ''
-        cls_name = kwargs
-        cls_id = cls_name
-        atr_name = cls_id
-        atr_val = atr_name
+        cls_name = cls_id = atr_name = atr_val = kwargs = ''
 
         args = args.partition(" ")
         if args[0]:
